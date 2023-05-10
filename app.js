@@ -1,5 +1,6 @@
 const info = document.querySelector('.info');
 const cellules = document.querySelectorAll('.cell');
+const restart = document.querySelector('.rejouer');
 
 let verouillage = true;
 let joueurEnCours = 'X';
@@ -54,6 +55,7 @@ function validationResultat() {
     if (finDePartie) {
         info.innerHTML = `Le joueur ${joueurEnCours} a gagné !`;
         verouillage = false;
+        restart.style.display = 'block';
         return;
     }
 
@@ -61,6 +63,7 @@ function validationResultat() {
     if (matchNul) {
         info.innerHTML = `Match nul !`;
         verouillage = false;
+        restart.style.display = 'block';
         return;
     }
     changementJoueur();
@@ -70,4 +73,17 @@ function validationResultat() {
 function changementJoueur() {
     joueurEnCours = joueurEnCours === 'X' ? 'O' : 'X';
     info.innerHTML = `Au tour de ${joueurEnCours}`;
+}
+
+restart.addEventListener('click', rejouer);
+
+function rejouer() {
+    verouillage = true;
+    joueurEnCours = 'X';
+    info.innerHTML = `Au tour de ${joueurEnCours}`;
+    partieEnCours = ['','','','','','','','',''];
+    cellules.forEach(cell => {
+        cell.innerHTML = '';
+        restart.style.display = 'none';
+    });
 }
